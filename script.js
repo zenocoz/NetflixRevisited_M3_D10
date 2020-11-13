@@ -115,24 +115,45 @@ const load_backoffice = () => {
 
 const render_list = async () => {
   console.log("render_list called")
-  //   let listed = document.querySelector("#listed")
+  let listed = document.querySelector("#listed")
 
   try {
     let all_genres = await get_genres()
-    console.log(all_genres)
     if (all_genres.length > 0) {
       //   let all_movies = []
       let movies = []
-
-      console.log(all_movies)
-      let all_movies = await all_genres.forEach(async genre => {
-        movies = await get_movies_by_genre(genre)
+      let all_movies = []
+      for (let i = 0; i < all_genres.length; i++) {
+        movies = await get_movies_by_genre(all_genres[i])
         all_movies.push(movies)
+      }
+      //TODO works with for loop but not with foreEach
+      // all_genres.forEach(genre => {
+      //     movie = await get_movies_by_genre(genre)
+      //     all_movies.push(movie)
+      // })
+      console.log(all_movies)
+      let movies_flat = [].concat(...all_movies)
+      console.log(movies_flat)
+      movies_flat.forEach(movie => {
+        let li = document.createElement("li")
+        li.classList.add("list-group-item", "d-flex", "justify-content-between")
+        li.innerHTML = `<span>${movie.name}</span>
+<span>${movie.description}</span>
+<button type="button" class="btn btn-primary" id="${movie._id}">Update</span><span></button>
+<button  type="button" class="btn btn-danger"  id="${movie._id}">Delete</button><span>`
+        listed.appendChild(li)
       })
-
-      let all = [].concat(...all_movies)
-
-      console.log(all)
+      let delete_btns = document.querySelectorAll(".btn-danger")
+      let update_btns = document.querySelectorAll(".btn-primary")
+      delete_btns.forEach((btn, i) => {
+        btn.onclick = function () {
+          delete_movie(btn.id)
+        }
+        update_btns[i].onclick = function () {
+          window.location.assign(`update.html?id=${btn.id}`)
+        }
+      })
     } else {
       console.log("THERE ARE NO GENRES")
     }
@@ -141,10 +162,23 @@ const render_list = async () => {
   }
 }
 
-// window.onload = () => {ß
-//   if (window.location.href.indexOf("movies-manager") != -1) {
+const delete_movie = async id => {
+  const deletion = await fetch(endpoint + id, {
+    method: "DELETE",
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZjA2YjRiY2RlMTAwMTc2MTZiYWEiLCJpYXQiOjE2MDUxMDM3MjMsImV4cCI6MTYwNjMxMzMyM30.UbKj_OMFcs4waSUNmvcnsQaJjquuaUrJLDBzVVcL-dE",
+    },
+  })
+  if (deletion.ok) {
+    alert("Event deleted successfully")
+    location.reload()
+  }
+}
+
+// window.onload = () => {
+//   if (window.location.pathname === "/movies_manager.html") {
 //   }
 // }
 render_list()
-get_movies_by_genre("Drama")
-const delete_movie = () => {}
+//get_movies_by_genre("Drama")
