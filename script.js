@@ -46,6 +46,7 @@ const get_movies_by_genre = async category => {
 const render_movies = async () => {
   let frame = document.querySelector("#frame")
   let genres = await get_genres()
+
   genres.forEach(async genre => {
     let heading = document.createElement("h5")
     heading.classList.add("text-white")
@@ -75,7 +76,6 @@ const render_movies = async () => {
 }
 
 //BACKOFFICE
-//read form, then send data to endpoint with post
 
 const load_backoffice = () => {
   let form = document.querySelector("#form")
