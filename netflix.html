@@ -2,15 +2,14 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
     <style>
         body {
             background-color: rgba(20, 20, 20, 1);
@@ -73,12 +72,17 @@
             background-color: black;
         }
     </style>
+
+
+    <link rel="stylesheet" href="style.css" />
+    <title>Netflix</title>
+
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#"><img id="logo" class="netflix-logo mb-2 mr-2" src="" /></a>
+        <a class="navbar-brand" href="#"><img id="logo" class="netflix-logo mb-2 mr-2"
+                src="images/Netflix_2015_logo.svg" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -108,13 +112,13 @@
             </ul>
             <form class="parent form-inline my-2 my-lg-0 w-40 justify-content-end">
                 <!-- <img id="searchIcon" src="images/icons8-search-48.png" alt=""> -->
-                <!-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="white"
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="white"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
                         d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
                     <path fill-rule="evenodd"
                         d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
-                </svg> -->
+                </svg>
                 <input class="parent form-control mr-sm-2 w-25" type="search" placeholder="kids" alt=""
                     aria-label="Search" id="navInput">
 
@@ -129,7 +133,7 @@
                 <!-- <li class="nav-item dropdown"> -->
                 <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img id="profile" src="" alt="">
+                    <img id="profile" src="images/blank-profile-picture-.png" alt="">
                 </a>
                 <div class="dropdown1 dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Action</a>
@@ -145,6 +149,7 @@
         </div>
     </nav>
     <div class="container-fluid">
+
         <div class="row">
             <div class="col">
                 <h3 class="text-light">TV Shows</h4>
@@ -167,65 +172,133 @@
             <div class="col-9"></div>
 
         </div>
-        <div class="container-fluid pl-5 pr-0" id="frame">
-
-        </div>
-        <footer id="footer">
-            <div class="footer-container">
-                <div class="row justify-content-center">
-                    <div class="col-3 first-list pl-0">
-                        <ul>
-                            <li>
-                                <a href="https://www.facebook.com/netflixitalia/" target="_blank"><i
-                                        class="fab fa-facebook fa-2x"></i></a>
-                                <a href="https://www.facebook.com/netflixitalia/" target="_blank"><i
-                                        class="fab fa-instagram fa-2x"></i></a>
-                                <a href="https://www.facebook.com/netflixitalia/" target="_blank"><i
-                                        class="fab fa-twitter fa-2x"></i></a>
-                                <a href="https://www.facebook.com/netflixitalia/" target="_blank"><i
-                                        class="fab fa-youtube fa-2x"></i></a>
-                            </li>
-                            <li><a href="#">Audio and Subtitles</a></li>
-                            <li><a href="#">Media Center</a></li>
-                            <li><a href="#">Privacy</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Service Code</a></li>
-                            <li><a href="#">&copy; 2020 - Team F</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-2 second-list d-flex flex-column justify-content-center">
-                        <a href="#">Audio Description</a>
-                        <a href="#">Inverstor Relations</a>
-                        <a href="#">Legal Notices</a>
-                    </div>
-
-                    <div class="col-2 third-list d-flex flex-column justify-content-center">
-                        <a href="#">Help Center</a>
-                        <a href="#">Jobs</a>
-                        <a href="#">Cookies</a>
-                    </div>
-                    <div class="col-2 fourth-list d-flex flex-column justify-content-center">
-                        <a href="#">Gift Cards</a>
-                        <a href="#">Terms of Use</a>
-                        <a href="#">Corporate Information</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <!-- images -->
+    <div class="container-fluid pl-5 pr-0">
+        <!-- first row -->
+        <!-- <h5 class="text-white">Trending Now</h5>
+        <div class="row no-gutters flex-lg-nowrap mb-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img class="img-fluid" src="img/01-1.jpg" alt="" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img class="img-fluid" src="img/01-2.jpg" alt="" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/01-3.jpg" alt="" class="img-fluid" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/01-1.jpg" alt="" class="img-fluid" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/01-2.jpg" alt="" class="img-fluid" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/01-3.jpg" alt="" class="img-fluid" />
+            </div> -->
+        <!-- </div> -->
+        <!-- second row -->
+        <!-- <h5 class="text-white">Watch it Again</h5>
+        <div class="row no-gutters flex-lg-nowrap mb-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img class="img-fluid" src="img/1-1.jpg" alt="" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img class="img-fluid" src="img/1-2.jpg" alt="" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/1-3.jpg" alt="" class="img-fluid" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/1-4.jpg" alt="" class="img-fluid" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/2-1.jpg" alt="" class="img-fluid" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/2-2.jpg" alt="" class="img-fluid" />
+            </div>
+        </div> -->
+
+        <!-- third row -->
+        <!-- <h5 class="text-white">New Releases</h5>
+        <div class="row no-gutters flex-lg-nowrap mb-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img class="img-fluid" src="img/2-3.jpg" alt="" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img class="img-fluid" src="img/2-4.jpg" alt="" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/3-1.jpg" alt="" class="img-fluid" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/3-2.jpg" alt="" class="img-fluid" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/3-3.jpg" alt="" class="img-fluid" />
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mr-2 mb-2">
+                <img src="img/3-4.jpg" alt="" class="img-fluid" />
+            </div>
+        </div> -->
+    </div>
+
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="row justify-content-center">
+                <div class="col-3 first-list pl-0">
+                    <ul>
+                        <li>
+                            <a href="https://www.facebook.com/netflixitalia/" target="_blank"><i
+                                    class="fab fa-facebook fa-2x"></i></a>
+                            <a href="https://www.facebook.com/netflixitalia/" target="_blank"><i
+                                    class="fab fa-instagram fa-2x"></i></a>
+                            <a href="https://www.facebook.com/netflixitalia/" target="_blank"><i
+                                    class="fab fa-twitter fa-2x"></i></a>
+                            <a href="https://www.facebook.com/netflixitalia/" target="_blank"><i
+                                    class="fab fa-youtube fa-2x"></i></a>
+                        </li>
+                        <li><a href="#">Audio and Subtitles</a></li>
+                        <li><a href="#">Media Center</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Service Code</a></li>
+                        <li><a href="#">&copy; 2020 - Team F</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-2 second-list d-flex flex-column justify-content-center">
+                    <a href="#">Audio Description</a>
+                    <a href="#">Inverstor Relations</a>
+                    <a href="#">Legal Notices</a>
+                </div>
+
+                <div class="col-2 third-list d-flex flex-column justify-content-center">
+                    <a href="#">Help Center</a>
+                    <a href="#">Jobs</a>
+                    <a href="#">Cookies</a>
+                </div>
+                <div class="col-2 fourth-list d-flex flex-column justify-content-center">
+                    <a href="#">Gift Cards</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Corporate Information</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
     </script>
-    <script src="script.js">
-
-    </script>
-
 
 </body>
 

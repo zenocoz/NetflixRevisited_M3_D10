@@ -1,16 +1,10 @@
-//home page
-
-//variables
-
 const endpoint = "https://striveschool-api.herokuapp.com/api/movies/"
 const token =
   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZjA2YjRiY2RlMTAwMTc2MTZiYWEiLCJpYXQiOjE2MDUxMDM3MjMsImV4cCI6MTYwNjMxMzMyM30.UbKj_OMFcs4waSUNmvcnsQaJjquuaUrJLDBzVVcL-dE"
 
-//global objects
+//Utility Functions
 
 const get_genres = async () => {
-  //await return all movies in a json
-  //make an object
   try {
     let response = await fetch(endpoint, {
       method: "GET",
@@ -22,7 +16,6 @@ const get_genres = async () => {
     console.log(genres)
     if (genres.length > 0) {
       return genres
-      //return genres;
     } else {
       console.log("There are no genres")
     }
@@ -58,11 +51,42 @@ const get_movies_by_genre = async category => {
 // }
 // render_categories()
 
+//HOME PAGE
+
 const render_movies = async () => {
   //get movies from get_genres and then render them according to the genre
-}
+  let frame = document.querySelector("#frame")
+  console.log(frame)
 
-get_genres()
+  let genres = await get_genres()
+  genres.forEach(async genre => {
+    let heading = document.createElement("h5")
+    heading.classList.add("text-white")
+    heading.innerText = `${genre}`
+    let row = document.createElement("div")
+    row.classList.add("no-gutters", "flex-lg-nowrap", "mb-3")
+    row.id = genre
+    row.innerHTML = ""
+    frame.appendChild(heading)
+    frame.appendChild(row)
+
+    let movies = await get_movies_by_genre(genre)
+    movies.forEach(movie => {
+      let col = document.createElement("div")
+      col.classList.add(
+        "col-12",
+        "col-sm-6",
+        "col-md-4",
+        "col-lg-2",
+        "mr-2",
+        "mb-2"
+      )
+      col.innerHTML = `<img class="img-fluid" src="${movie.imageUrl}" alt="" />`
+      let row_genre = document.getElementById(`${genre}`)
+      row_genre.appendChild(col)
+    })
+  })
+}
 
 //BACKOFFICE
 //read form, then send data to endpoint with post
@@ -109,10 +133,7 @@ const load_backoffice = () => {
   }
 }
 
-//load_backoffice()
-
 //MOVIES MANAGER
-
 const render_list = async () => {
   console.log("render_list called")
   let listed = document.querySelector("#listed")
@@ -139,9 +160,9 @@ const render_list = async () => {
         let li = document.createElement("li")
         li.classList.add("list-group-item", "d-flex", "justify-content-between")
         li.innerHTML = `<span>${movie.name}</span>
-<span>${movie.description}</span>
-<button type="button" class="btn btn-primary" id="${movie._id}">Update</span><span></button>
-<button  type="button" class="btn btn-danger"  id="${movie._id}">Delete</button><span>`
+      <span>${movie.description}</span>
+      <button type="button" class="btn btn-primary" id="${movie._id}">Update</span><span></button>
+      <button  type="button" class="btn btn-danger"  id="${movie._id}">Delete</button><span>`
         listed.appendChild(li)
       })
       let delete_btns = document.querySelectorAll(".btn-danger")
@@ -176,9 +197,18 @@ const delete_movie = async id => {
   }
 }
 
-// window.onload = () => {
-//   if (window.location.pathname === "/movies_manager.html") {
-//   }
-// }
-render_list()
+window.onload = () => {
+  if (window.location.pathname === "/index.html") {
+    //get_genres()
+    render_movies()
+  }
+
+  if (window.location.pathname === "/movies_manager.html") {
+    render_list()
+  }
+  if (window.location.pathname === "/backoffice.html") {
+    load_backoffice()
+  }
+}
+//render_list()
 //get_movies_by_genre("Drama")
