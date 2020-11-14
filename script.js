@@ -2,7 +2,7 @@ const endpoint = "https://striveschool-api.herokuapp.com/api/movies/"
 const token =
   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZjA2YjRiY2RlMTAwMTc2MTZiYWEiLCJpYXQiOjE2MDUxMDM3MjMsImV4cCI6MTYwNjMxMzMyM30.UbKj_OMFcs4waSUNmvcnsQaJjquuaUrJLDBzVVcL-dE"
 
-//Utility Functions
+//--------------------------------------------------------------Utility Functions-------------------------------//
 
 const get_genres = async () => {
   try {
@@ -71,13 +71,14 @@ const get_all_movies = async () => {
 const get_single_movie = async id => {
   let movies = await get_all_movies()
   if (movies) {
-    let movie = movies.find(el => (el._id = id))
+    console.log(movies)
+    let movie = movies.find(el => el._id === id)
     console.log(movie)
     return movie
   }
 }
 
-//HOME PAGE
+//----------------------------------------------------------------HOME PAGE-------------------------------------------//
 
 const render_movies = async () => {
   let frame = document.querySelector("#frame")
@@ -111,7 +112,7 @@ const render_movies = async () => {
   })
 }
 
-//BACKOFFICE
+//----------------------------------------------------BACKOFFICE---------------------------------------//
 
 const load_backoffice = () => {
   let form = document.querySelector("#form")
@@ -155,7 +156,8 @@ const load_backoffice = () => {
   }
 }
 
-//MOVIES MANAGER
+//-------------------------------------------------MOVIES MANAGER---------------------------------------//
+
 const render_list = async () => {
   let listed = document.querySelector("#listed")
   try {
@@ -164,8 +166,7 @@ const render_list = async () => {
       all_movies.forEach(movie => {
         let li = document.createElement("li")
         li.classList.add("list-group-item", "d-flex", "justify-content-between")
-        li.innerHTML = `<div class = "content-wrapper justify content-between"><span>${movie.name}</span>
-      <span>${movie.description}</span> </div><div class = btn-wrapper justify-content-end>
+        li.innerHTML = `<div class="d-flex justify-content-between"><span>${movie.name}</span><span>${movie.category}</span></div><div>
       <button type="button" class="btn btn-primary" id="${movie._id}">Update</span><span></button>
       <button  type="button" class="btn btn-danger"  id="${movie._id}">Delete</button><span></div>`
         listed.appendChild(li)
@@ -201,11 +202,12 @@ const delete_movie = async id => {
   }
 }
 
-//UPDATE PAGE-----------------
+//-----------------------------------------------------------UPDATE PAGE---------------------------------------//
 
 const load_update_page = async () => {
   let urlParams = new URLSearchParams(window.location.search)
   id = urlParams.get("id")
+  console.log(id)
 
   if (id) {
     let movie = await get_single_movie(id)
@@ -259,7 +261,6 @@ window.onload = () => {
   if (window.location.pathname === "/index.html") {
     render_movies()
   }
-
   if (window.location.pathname === "/movies_manager.html") {
     render_list()
   }
