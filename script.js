@@ -55,6 +55,11 @@ const get_all_movies = async () => {
       movies = await get_movies_by_genre(genres[i])
       all_movies.push(movies)
     }
+    //TODO works with for loop but not with foreEach
+    // all_genres.forEach(genre => {
+    //     movie = await get_movies_by_genre(genre)
+    //     all_movies.push(movie)
+    // })
     let all_movies_flat = [].concat(...all_movies)
     console.log(all_movies_flat)
     return all_movies_flat
@@ -154,23 +159,9 @@ const load_backoffice = () => {
 const render_list = async () => {
   let listed = document.querySelector("#listed")
   try {
-    let all_genres = await get_genres()
-    if (all_genres.length > 0) {
-      let movies = []
-      let all_movies = []
-      for (let i = 0; i < all_genres.length; i++) {
-        movies = await get_movies_by_genre(all_genres[i])
-        all_movies.push(movies)
-      }
-      //TODO works with for loop but not with foreEach
-      // all_genres.forEach(genre => {
-      //     movie = await get_movies_by_genre(genre)
-      //     all_movies.push(movie)
-      // })
-      console.log(all_movies)
-      let movies_flat = [].concat(...all_movies)
-      console.log(movies_flat)
-      movies_flat.forEach(movie => {
+    let all_movies = await get_all_movies()
+    if (all_movies.length > 0) {
+      all_movies.forEach(movie => {
         let li = document.createElement("li")
         li.classList.add("list-group-item", "d-flex", "justify-content-between")
         li.innerHTML = `<span>${movie.name}</span>
@@ -190,7 +181,7 @@ const render_list = async () => {
         }
       })
     } else {
-      console.log("THERE ARE NO GENRES")
+      console.log("THERE ARE NO MOVIES")
     }
   } catch (error) {
     console.log(error)
@@ -219,10 +210,48 @@ const load_update_page = async () => {
   if (id) {
     let movie = await get_single_movie(id)
     console.log(movie)
-    // document.querySelector("#name").value = movie.name
-    // document.querySelector("#description").value = movie.description
-    // document.querySelector("#category").value = movie.category
-    // document.querySelector("#image").value = movie.imageUrl
+    document.querySelector("#name").value = movie.name
+    document.querySelector("#description").value = movie.description
+    document.querySelector("#category").value = movie.category
+    document.querySelector("#image").value = movie.imageUrl
+  }
+  let form = document.querySelector("#form")
+  form.addEventListener("submit", event => {
+    handle_update(event)
+  })
+  const handle_update = event => {
+    event.preventDefault()
+    update()
+  }
+  const update = async () => {
+    let movie = {
+      name: document.querySelector("#name").value,
+      description: document.querySelector("#description").value,
+      category: document.querySelector("#category").value,
+      imageUrl: document.querySelector("#image").value,
+    }
+    try {
+      let response = await fetch(endpoint + id, {
+        method: "PUT",
+        body: JSON.stringify(movie),
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: token,
+        }),
+      })
+      if (response.ok) {
+        alert("MOVIE UPDATED SUCCESFULLY")
+        const success = await response.json()
+        console.log(success)
+        location.reload()
+        location.assign("index.html")
+      } else {
+        const error = await response.json()
+        console.log(error)
+      }
+    } catch (error) {
+      alert(error)
+    }
   }
 }
 
@@ -241,5 +270,3 @@ window.onload = () => {
     load_update_page()
   }
 }
-
-get_all_movies()
