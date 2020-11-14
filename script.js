@@ -44,10 +44,7 @@ const get_movies_by_genre = async category => {
 //HOME PAGE
 
 const render_movies = async () => {
-  //get movies from get_genres and then render them according to the genre
   let frame = document.querySelector("#frame")
-  console.log(frame)
-
   let genres = await get_genres()
   genres.forEach(async genre => {
     let heading = document.createElement("h5")
@@ -59,7 +56,6 @@ const render_movies = async () => {
     row.innerHTML = ""
     frame.appendChild(heading)
     frame.appendChild(row)
-
     let movies = await get_movies_by_genre(genre)
     movies.forEach(movie => {
       let col = document.createElement("div")
@@ -125,13 +121,10 @@ const load_backoffice = () => {
 
 //MOVIES MANAGER
 const render_list = async () => {
-  console.log("render_list called")
   let listed = document.querySelector("#listed")
-
   try {
     let all_genres = await get_genres()
     if (all_genres.length > 0) {
-      //   let all_movies = []
       let movies = []
       let all_movies = []
       for (let i = 0; i < all_genres.length; i++) {
@@ -177,8 +170,7 @@ const delete_movie = async id => {
   const deletion = await fetch(endpoint + id, {
     method: "DELETE",
     headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZjA2YjRiY2RlMTAwMTc2MTZiYWEiLCJpYXQiOjE2MDUxMDM3MjMsImV4cCI6MTYwNjMxMzMyM30.UbKj_OMFcs4waSUNmvcnsQaJjquuaUrJLDBzVVcL-dE",
+      Authorization: token,
     },
   })
   if (deletion.ok) {
