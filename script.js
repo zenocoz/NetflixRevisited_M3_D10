@@ -164,10 +164,10 @@ const render_list = async () => {
       all_movies.forEach(movie => {
         let li = document.createElement("li")
         li.classList.add("list-group-item", "d-flex", "justify-content-between")
-        li.innerHTML = `<span>${movie.name}</span>
-      <span>${movie.description}</span>
+        li.innerHTML = `<div class = "content-wrapper justify content-between"><span>${movie.name}</span>
+      <span>${movie.description}</span> </div><div class = btn-wrapper justify-content-end>
       <button type="button" class="btn btn-primary" id="${movie._id}">Update</span><span></button>
-      <button  type="button" class="btn btn-danger"  id="${movie._id}">Delete</button><span>`
+      <button  type="button" class="btn btn-danger"  id="${movie._id}">Delete</button><span></div>`
         listed.appendChild(li)
       })
       let delete_btns = document.querySelectorAll(".btn-danger")
