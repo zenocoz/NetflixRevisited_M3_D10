@@ -103,9 +103,15 @@ const render_movies = async () => {
         "col-md-4",
         "col-lg-2",
         "mr-2",
-        "mb-2"
+        "mb-2",
+        "item"
       )
-      col.innerHTML = `<img class="img-fluid" src="${movie.imageUrl}" alt="" />`
+      col.innerHTML = `<img class="img-fluid" src="${movie.imageUrl}" alt="" /> 
+      <div class="carousel-caption d-none d-md-block" ><span>
+    <h5>${movie.name}</h5>
+    <h6>${movie.description}</h6></span>
+  </div>`
+
       let row_genre = document.getElementById(`${genre}`)
       row_genre.appendChild(col)
     })
