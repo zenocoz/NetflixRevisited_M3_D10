@@ -40,16 +40,6 @@ const get_movies_by_genre = async category => {
     alert(error)
   }
 }
-// const check_categories = async () => {
-//   //create another object with key values
-//   //pass them on to render
-// }
-
-// const render_categories = async () => {
-//   //render rows with template literals after passing a categories object and assign genre ids
-//   console.log(genres)
-// }
-// render_categories()
 
 //HOME PAGE
 
@@ -64,7 +54,7 @@ const render_movies = async () => {
     heading.classList.add("text-white")
     heading.innerText = `${genre}`
     let row = document.createElement("div")
-    row.classList.add("no-gutters", "flex-lg-nowrap", "mb-3")
+    row.classList.add("row", "no-gutters", "flex-lg-nowrap", "mb-3")
     row.id = genre
     row.innerHTML = ""
     frame.appendChild(heading)
@@ -122,7 +112,7 @@ const load_backoffice = () => {
         const success = await response.json()
         console.log(success)
         location.reload()
-        //location.assign("index.html")
+        location.assign("index.html")
       } else {
         const error = await response.json()
         console.log(error)
@@ -199,7 +189,6 @@ const delete_movie = async id => {
 
 window.onload = () => {
   if (window.location.pathname === "/index.html") {
-    //get_genres()
     render_movies()
   }
 
@@ -210,5 +199,3 @@ window.onload = () => {
     load_backoffice()
   }
 }
-//render_list()
-//get_movies_by_genre("Drama")
