@@ -41,6 +41,37 @@ const get_movies_by_genre = async category => {
   }
 }
 
+const get_all_movies = async () => {
+  try {
+    let response = await fetch(endpoint, {
+      method: "GET",
+      headers: new Headers({
+        Authorization: token,
+      }),
+    })
+    let genres = await response.json()
+    let all_movies = []
+    for (let i = 0; i < genres.length; i++) {
+      movies = await get_movies_by_genre(genres[i])
+      all_movies.push(movies)
+    }
+    let all_movies_flat = [].concat(...all_movies)
+    console.log(all_movies_flat)
+    return all_movies_flat
+  } catch (error) {
+    alert(error)
+  }
+}
+
+const get_single_movie = async id => {
+  let movies = await get_all_movies()
+  if (movies) {
+    let movie = movies.find(el => (el._id = id))
+    console.log(movie)
+    return movie
+  }
+}
+
 //HOME PAGE
 
 const render_movies = async () => {
@@ -179,6 +210,22 @@ const delete_movie = async id => {
   }
 }
 
+//UPDATE PAGE-----------------
+
+const load_update_page = async () => {
+  let urlParams = new URLSearchParams(window.location.search)
+  id = urlParams.get("id")
+
+  if (id) {
+    let movie = await get_single_movie(id)
+    console.log(movie)
+    // document.querySelector("#name").value = movie.name
+    // document.querySelector("#description").value = movie.description
+    // document.querySelector("#category").value = movie.category
+    // document.querySelector("#image").value = movie.imageUrl
+  }
+}
+
 window.onload = () => {
   if (window.location.pathname === "/index.html") {
     render_movies()
@@ -190,4 +237,9 @@ window.onload = () => {
   if (window.location.pathname === "/backoffice.html") {
     load_backoffice()
   }
+  if (window.location.pathname === "/update.html") {
+    load_update_page()
+  }
 }
+
+get_all_movies()
