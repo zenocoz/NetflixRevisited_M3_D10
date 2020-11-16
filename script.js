@@ -6,13 +6,13 @@ const token =
 
 const get_genres = async () => {
   try {
-    let response = await fetch(endpoint, {
+    const response = await fetch(endpoint, {
       method: "GET",
       headers: new Headers({
         Authorization: token,
       }),
     })
-    let genres = await response.json()
+    const genres = await response.json()
     console.log(genres)
     if (genres.length > 0) {
       return genres
@@ -24,15 +24,15 @@ const get_genres = async () => {
   }
 }
 
-const get_movies_by_genre = async category => {
+const get_movies_by_genre = async (category) => {
   try {
-    let response = await fetch(endpoint + category, {
+    const response = await fetch(endpoint + category, {
       method: "GET",
       headers: new Headers({
         Authorization: token,
       }),
     })
-    let movies = await response.json()
+    const movies = await response.json()
     console.log(movies)
     console.log(`there are ${movies.length} movies of ${category} genre`)
     return movies
@@ -43,36 +43,46 @@ const get_movies_by_genre = async category => {
 
 const get_all_movies = async () => {
   try {
-    let response = await fetch(endpoint, {
+    const response = await fetch(endpoint, {
       method: "GET",
       headers: new Headers({
         Authorization: token,
       }),
     })
-    let genres = await response.json()
-    let all_movies = []
-    for (let i = 0; i < genres.length; i++) {
-      movies = await get_movies_by_genre(genres[i])
-      all_movies.push(movies)
-    }
-    //TODO works with for loop but not with foreEach
-    // all_genres.forEach(genre => {
-    //     movie = await get_movies_by_genre(genre)
-    //     all_movies.push(movie)
+    const genres = await response.json()
+
+    //1) Promise.all(promises)
+    const all_movies = genres.map((genre) => get_movies_by_genre(genre)) //returns array of promises
+    const results = await Promise.all(all_movies)
+    const all_movies_flat = results.flat()
+    console.log("ARRAY NUOVO", all_movies_flat)
+
+    //2) Vanilla js
+    // let all_movies = []
+    // for (let i = 0; i < genres.length; i++) {
+    //   movies = await get_movies_by_genre(genres[i])
+    //   all_movies.push(movies)
+    // }
+
+    //3) ES 6
+    // genres.forEach(async (genre) => {
+    //   movie = await get_movies_by_genre(genre)
+    //   all_movies.push(movie)
     // })
-    let all_movies_flat = [].concat(...all_movies)
-    console.log(all_movies_flat)
+    //const all_movies_flat = [].concat(...all_movies) //one way of flattening
+    //const all_movies_flat = all_movies.flat() //same as above but more concise //another way of flattening
+
     return all_movies_flat
   } catch (error) {
     alert(error)
   }
 }
 
-const get_single_movie = async id => {
-  let movies = await get_all_movies()
+const get_single_movie = async (id) => {
+  const movies = await get_all_movies()
   if (movies) {
     console.log(movies)
-    let movie = movies.find(el => el._id === id)
+    const movie = movies.find((el) => el._id === id)
     console.log(movie)
     return movie
   }
@@ -84,7 +94,7 @@ const render_movies = async () => {
   let frame = document.querySelector("#frame")
   let genres = await get_genres()
 
-  genres.forEach(async genre => {
+  genres.forEach(async (genre) => {
     let heading = document.createElement("h5")
     heading.classList.add("text-white")
     heading.innerText = `${genre}`
@@ -95,7 +105,7 @@ const render_movies = async () => {
     frame.appendChild(heading)
     frame.appendChild(row)
     let movies = await get_movies_by_genre(genre)
-    movies.forEach(movie => {
+    movies.forEach((movie) => {
       let col = document.createElement("div")
       col.classList.add(
         "col-12",
@@ -122,10 +132,10 @@ const render_movies = async () => {
 
 const load_backoffice = () => {
   let form = document.querySelector("#form")
-  form.addEventListener("submit", event => {
+  form.addEventListener("submit", (event) => {
     handle_submit(event)
   })
-  const handle_submit = event => {
+  const handle_submit = (event) => {
     event.preventDefault()
     submit()
   }
@@ -169,7 +179,7 @@ const render_list = async () => {
   try {
     let all_movies = await get_all_movies()
     if (all_movies.length > 0) {
-      all_movies.forEach(movie => {
+      all_movies.forEach((movie) => {
         let li = document.createElement("li")
         li.classList.add("list-group-item", "d-flex", "justify-content-between")
         li.innerHTML = `<div class="d-flex justify-content-between"><span>${movie.name}</span><span>${movie.category}</span></div><div>
@@ -195,7 +205,7 @@ const render_list = async () => {
   }
 }
 
-const delete_movie = async id => {
+const delete_movie = async (id) => {
   const deletion = await fetch(endpoint + id, {
     method: "DELETE",
     headers: {
@@ -224,10 +234,10 @@ const load_update_page = async () => {
     document.querySelector("#image").value = movie.imageUrl
   }
   let form = document.querySelector("#form")
-  form.addEventListener("submit", event => {
+  form.addEventListener("submit", (event) => {
     handle_update(event)
   })
-  const handle_update = event => {
+  const handle_update = (event) => {
     event.preventDefault()
     update()
   }
